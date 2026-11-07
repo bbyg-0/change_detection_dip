@@ -1,0 +1,56 @@
+KEPUTUSAN TEKNIS PERCOBAAN CHANGE DETECTION PolSAR (UAVSAR P-BAND EEL RIVER)
+================================================================================
+Semua poin di bawah ini memakai nilai default untuk tahap awal. Ditinjau ulang
+setelah uji coba pada tile Arcata.
+
+1. KONVENSI MATRIKS KOVARIANS
+   Pertanyaan: Apakah file HHHV/HHVV/HVVV menyimpan <HH·HV*> atau <HH*·HV>?
+   Apakah faktor skala akar 2 dan 2 untuk HV dipakai konsisten?
+   Keputusan: Pakai <HH·HV*> apa adanya (sesuai isi file), elemen silang dikali
+   akar 2, diagonal HV dikali 2. Wajib diverifikasi dari data sebelum dipakai;
+   jika hasil verifikasi berbeda, konvensi dikoreksi dan dicatat.
+
+2. RUMUS OMNIBUS DAN NO-DATA
+   Pertanyaan: Konfirmasi p=3, m=189 (7x27), n=2, dan pemakaian Eq. 10 apa
+   adanya atau perlu absolut/normalisasi; bagaimana menangani piksel invalid?
+   Keputusan: Gunakan Eq. 10 dengan p=3, m=189, n=2. Piksel dengan diagonal
+   <= 0 atau NaN di-mask. Determinant singular ditangani dengan diagonal
+   loading kecil (epsilon relatif terhadap trace).
+
+3. FILTER SPECKLE
+   Pertanyaan: Pakai refined Lee 7x7 seperti paper, atau tanpa filter?
+   Keputusan: Tanpa filter terlebih dahulu karena GRD sudah multi-look 189.
+   Refined Lee hanya diterapkan jika DI terlalu bising, dengan implementasi
+   manual atau alternatif yang didokumentasikan.
+
+4. CO-REGISTRATION RESIDUAL
+   Pertanyaan: Bagaimana memastikan objek benar-benar match meski grid sejajar?
+   Keputusan: Cek phase correlation dan overlay Pauli-RGB T1 vs T2 per tile.
+   Koreksi dilakukan hanya jika pergeseran > 0,5 piksel; offset integer yang
+   ditemukan dicatat.
+
+5. DETAIL K&I (KITTLER-ILLINGWORTH)
+   Pertanyaan: Jumlah gray level L, cara binning histogram, dan estimasi MLE
+   distribusi terpotong (Weibull/gamma) per kandidat threshold.
+   Keputusan: L otomatis dari rentang DI (default 2048). Estimasi MLE memakai
+   SciPy. Nilai d yang mendekati 0 ditangani dengan clipping/epsilon agar
+   ln(d) dan d^(gamma-1) tidak overflow.
+
+6. CAKUPAN METODE PEMBANDING
+   Pertanyaan: Sejauh mana metode pembanding yang diimplementasikan?
+   Keputusan: Implementasikan log-ratio + K&I, K&I Gaussian, CFAR, dan
+   threshold signifikansi 5% dan 1%. Generalized Gaussian ditunda.
+
+7. FORMAT KELUARAN
+   Pertanyaan: Script modular atau notebook; output apa saja; mulai 1 tile
+   atau langsung 5 tile?
+   Keputusan: Script modular + file config. Mulai dari tile Arcata dengan
+   150-200 titik sampel, lalu diperluas ke 5 kota (Tyee City, Arcata,
+   McKinleyville, Eureka, Samoa). Output: peta perubahan, DI, kurva fitting
+   histogram, tabel metrik (FA/TE/OA/Kappa), dan laporan singkat.
+
+CATATAN TAMBAHAN
+- Metode evaluasi: sample-based ground truth dengan labeling HTML, manusia
+  sebagai penentu akhir, pseudo-reference optik sebagai bantuan opsional.
+- Tile default 512x512 piksel pada grid overlap (offset T1 +246 baris,
+  +414 kolom terhadap T2).

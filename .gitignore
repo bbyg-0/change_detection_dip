@@ -1,0 +1,35 @@
+# Virtual environment
+venv/
+
+# Reference paper (not distributed)
+rujukan/
+
+# Raw UAVSAR data: keep locally, only annotation files are tracked
+data/T1/*
+!data/T1/*.ann
+data/T2/*
+!data/T2/*.ann
+
+# Generated outputs
+output/
+*.tif
+*.tif.aux.xml
+*.kmz
+*.h5
+*.mlc
+*.slc
+*.grd
+*.inc
+*.slope
+*.hgt
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

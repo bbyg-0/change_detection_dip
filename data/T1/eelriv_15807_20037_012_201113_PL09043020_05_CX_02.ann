@@ -1,0 +1,317 @@
+; Parameter file for eelriv_15807_20037_012_201113_PL09043020_05_CX_02
+;
+; Search for parameters/value rather than placement in file
+;
+; slc = single look complex slant range image
+; mlc = multi look cross product slant range image
+; dat = compressed stokes matrix of multi-looked data
+; grd = ground range projected (equiangular) and multi-looked data
+; hgt = digital elevation model (DEM) used during processing and ground projection
+; inc = ground range local incidence angle, the angle between the surface normal and the radar line of sight 
+; slope = ground range terrain slope containing the derivatives of the DEM in the East and North direction, used to compute the local incidence angle
+; h5  = HDF5 file containing binary data products mlc, grd, hgt, inc, and slope
+; slc_mag and slc_phase are derived from the same 8 bytes per pixel of the slc input file
+; mlc_mag and mlc_phase are derived from the same 8 bytes per pixel of the complex mlc input files
+; grd_mag and grd_phase are ground range projected (equiangular) complex cross-product images
+;
+; Peg position is the nadir position of aircraft at the middle of the datatake
+; Projection of image is relative to the flightline (S - along track position, C - cross track position)
+; S0, C0 is offset to upper left coordinate of SLC in meters
+;
+; To display MLC amplitude and phase in mdx:
+; mdx -h eelriv_15807_20037_012_201113_PL09043020_05_CX_02.ann -mix + -PER -percent 95 -exp .5 eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.mlc -set mlc_pwr -cmap red eelriv_15807_20037_012_201113_PL09043020_05HVHV_CX_02.mlc -set mlc_pwr -cmap green -exp .5 eelriv_15807_20037_012_201113_PL09043020_05VVVV_CX_02.mlc -set mlc_pwr -cmap blue
+; To display GRD amplitude and phase in mdx:
+; mdx -h eelriv_15807_20037_012_201113_PL09043020_05_CX_02.ann -mix + -PER -percent 95 -exp .5 eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.grd -set grd_pwr -cmap red eelriv_15807_20037_012_201113_PL09043020_05HVHV_CX_02.grd -set grd_pwr -cmap green -exp .5 eelriv_15807_20037_012_201113_PL09043020_05VVVV_CX_02.grd -set grd_pwr -cmap blue 
+
+
+; Annotation file version (when an annotation file contains no annotation version field, assume the version number is 1.0)
+
+UAVSAR PolSAR Annotation File Version Number      (-)             = 2.4
+
+; general location of data (non-unique)
+
+Site Description = Eel River, CA
+
+; URL of JPL website for precision data
+
+URL     = http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=eelriv_15807_20037_012_201113_PL09043020_CX_02
+
+; list of precision data files
+
+slcHH   = eelriv_15807_20037_012_201113_PL09043020_05HH_CX_02.slc                      ; File Size 12307408320 bytes
+slcHV   = eelriv_15807_20037_012_201113_PL09043020_05HV_CX_02.slc                      ; File Size 12307408320 bytes
+slcVH   = eelriv_15807_20037_012_201113_PL09043020_05VH_CX_02.slc                      ; File Size 12307408320 bytes
+slcVV   = eelriv_15807_20037_012_201113_PL09043020_05VV_CX_02.slc                      ; File Size 12307408320 bytes
+mlcHHHH = eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.mlc                    ; File Size 32545420    bytes
+mlcHVHV = eelriv_15807_20037_012_201113_PL09043020_05HVHV_CX_02.mlc                    ; File Size 32545420    bytes
+mlcVVVV = eelriv_15807_20037_012_201113_PL09043020_05VVVV_CX_02.mlc                    ; File Size 32545420    bytes
+mlcHHHV = eelriv_15807_20037_012_201113_PL09043020_05HHHV_CX_02.mlc                    ; File Size 65090840    bytes
+mlcHHVV = eelriv_15807_20037_012_201113_PL09043020_05HHVV_CX_02.mlc                    ; File Size 65090840    bytes
+mlcHVVV = eelriv_15807_20037_012_201113_PL09043020_05HVVV_CX_02.mlc                    ; File Size 65090840    bytes
+dat     = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.dat                        ; File Size 81405700    bytes
+grdHHHH = eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.grd                    ; File Size 129883684   bytes
+grdHVHV = eelriv_15807_20037_012_201113_PL09043020_05HVHV_CX_02.grd                    ; File Size 129883684   bytes
+grdVVVV = eelriv_15807_20037_012_201113_PL09043020_05VVVV_CX_02.grd                    ; File Size 129883684   bytes
+grdHHHV = eelriv_15807_20037_012_201113_PL09043020_05HHHV_CX_02.grd                    ; File Size 259767368   bytes
+grdHHVV = eelriv_15807_20037_012_201113_PL09043020_05HHVV_CX_02.grd                    ; File Size 259767368   bytes
+grdHVVV = eelriv_15807_20037_012_201113_PL09043020_05HVVV_CX_02.grd                    ; File Size 259767368   bytes
+hgt     = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.hgt                        ; File Size 129883684   bytes
+inc     = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.inc                        ; File Size 129883684   bytes
+slope   = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.slope                      ; File Size 259767368   bytes
+kmz     = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.kmz                        ; File Size 19231065    bytes
+h5      = eelriv_15807_20037_012_201113_PL09043020_05_CX_02.h5                          ; File Size 615352989   bytes
+
+; data format information, see comments after semicolon for descriptions
+; also used as mdx display parameters (mdx header)
+; exception: compressed stokes matrix dat cannot be displayed using mdx
+
+set_name                                          (&)         =                        ; Layers Described
+slc_mag.set_rows                                  (pixels)    = 156360                 ; SLC Lines
+slc_mag.set_cols                                  (pixels)    = 9839                   ; SLC Samples
+slc_phase.set_rows                                (pixels)    = 156360                 ; SLC Lines
+slc_phase.set_cols                                (pixels)    = 9839                   ; SLC Samples
+mlc_pwr.set_rows                                  (pixels)    = 5791                   ; MLC Lines
+mlc_pwr.set_cols                                  (pixels)    = 1405                   ; MLC Samples
+mlc_mag.set_rows                                  (pixels)    = 5791                   ; MLC Lines
+mlc_mag.set_cols                                  (pixels)    = 1405                   ; MLC Samples
+mlc_phase.set_rows                                (pixels)    = 5791                   ; MLC Lines
+mlc_phase.set_cols                                (pixels)    = 1405                   ; MLC Samples
+dat.set_rows                                      (pixels)    = 5791                   ; DAT Lines   (cannot be displayed in mdx)
+dat.set_cols                                      (pixels)    = 1405                   ; DAT Samples (cannot be displayed in mdx)
+grd_pwr.set_rows                                  (pixels)    = 6277                   ; GRD Lines
+grd_pwr.set_cols                                  (pixels)    = 5173                   ; GRD Samples
+grd_mag.set_rows                                  (pixels)    = 6277                   ; GRD Lines
+grd_mag.set_cols                                  (pixels)    = 5173                   ; GRD Samples
+grd_phase.set_rows                                (pixels)    = 6277                   ; GRD Lines
+grd_phase.set_cols                                (pixels)    = 5173                   ; GRD Samples
+hgt.set_rows                                      (pixels)    = 6277                   ; HGT Lines
+hgt.set_cols                                      (pixels)    = 5173                   ; HGT Samples
+inc.set_rows                                      (pixels)    = 6277                   ; INC Lines
+inc.set_cols                                      (pixels)    = 5173                   ; INC Samples
+slope.set_rows                                    (pixels)    = 6277                   ; SLOPE Lines
+slope.set_cols                                    (pixels)    = 5173                   ; SLOPE Samples
+set_hddr                                          (bytes)     = 0                      ; Header Bytes in Raw Data
+set_tail                                          (bytes)     = 0                      ; Tail Bytes in Raw Data
+slc_mag.set_proj                                  (&)         = SCX                    ; SLC Data Projection: Slant Range
+slc_phase.set_proj                                (&)         = SCX                    ; SLC Data Projection: Slant Range
+mlc_pwr.set_proj                                  (&)         = SCX                    ; MLC Data Projection: Slant Range
+mlc_mag.set_proj                                  (&)         = SCX                    ; MLC Data Projection: Slant Range
+mlc_phase.set_proj                                (&)         = SCX                    ; MLC Data Projection: Slant Range
+dat.set_proj                                      (&)         = SCX                    ; DAT Data Projection: Slant Range
+grd_pwr.set_proj                                  (&)         = EQA                    ; GRD Data Projection: Equiangular Ground Range
+grd_mag.set_proj                                  (&)         = EQA                    ; GRD Data Projection: Equiangular Ground Range
+grd_phase.set_proj                                (&)         = EQA                    ; GRD Data Projection: Equiangular Ground Range
+hgt.set_proj                                      (&)         = EQA                    ; HGT Data Projection: Equiangular Ground Range
+inc.set_proj                                      (&)         = EQA                    ; INC Data Projection: Equiangular Ground Range
+slope.set_proj                                    (&)         = EQA                    ; SLOPE Data Projection: Equiangular Ground Range
+set_plat                                          (deg)       = 40.837053757           ; Peg Latitude
+set_plon                                          (deg)       = -124.15595449          ; Peg Longitude
+set_phdg                                          (deg)       = 157.18600005           ; Peg Heading
+slc_mag.row_addr                                  (m)         = -46921.2               ; S (azimuth) Offset(S0) from Peg
+slc_mag.col_addr                                  (m)         = 11927.1539             ; R (range) Offset(R0) from Peg
+slc_phase.row_addr                                (m)         = -46921.2               ; S (azimuth) Offset(S0) from Peg
+slc_phase.col_addr                                (m)         = 11927.1539             ; R (range) Offset(R0) from Peg
+mlc_pwr.row_addr                                  (m)         = -46913.4               ; S (azimuth) Offset(S0) from Peg
+mlc_pwr.col_addr                                  (m)         = 11932.15044098         ; R (range) Offset(R0) from Peg
+mlc_mag.row_addr                                  (m)         = -46913.4               ; S (azimuth) Offset(S0) from Peg
+mlc_mag.col_addr                                  (m)         = 11932.15044098         ; R (range) Offset(R0) from Peg
+mlc_phase.row_addr                                (m)         = -46913.4               ; S (azimuth) Offset(S0) from Peg
+mlc_phase.col_addr                                (m)         = 11932.15044098         ; R (range) Offset(R0) from Peg
+dat.row_addr                                      (m)         = -46913.4               ; S (azimuth) Offset(S0) from Peg
+dat.col_addr                                      (m)         = 11932.15044098         ; R (range) Offset(R0) from Peg
+grd_pwr.row_addr                                  (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of GRD Image 
+grd_pwr.col_addr                                  (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of GRD Image
+grd_mag.row_addr                                  (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of GRD Image 
+grd_mag.col_addr                                  (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of GRD Image
+grd_phase.row_addr                                (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of GRDImage 
+grd_phase.col_addr                                (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of GRD Image
+hgt.row_addr                                      (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of HGT Image 
+hgt.col_addr                                      (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of HGT Image
+inc.row_addr                                      (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of INC Image 
+inc.col_addr                                      (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of INC Image
+slope.row_addr                                    (deg)       = 41.31826388888889      ; Center Latitude of Upper Left Pixel of SLOPE Image 
+slope.col_addr                                    (deg)       = -124.37409722222222    ; Center Longitude of Upper Left Pixel of SLOPE Image
+slc_mag.row_mult                                  (m/pixel)   = 0.6                    ; SLC S (azimuth) Slant Post Spacing 
+slc_mag.col_mult                                  (m/pixel)   = 1.66551366             ; SLC R (range) Slant Post Spacing
+slc_phase.row_mult                                (m/pixel)   = 0.6                    ; SLC S (azimuth) Slant Post Spacing
+slc_phase.col_mult                                (m/pixel)   = 1.66551366             ; SLC R (range) Slant Post Spacing
+mlc_pwr.row_mult                                  (m/pixel)   = 16.2                   ; MLC S (azimuth) Slant Post Spacing
+mlc_pwr.col_mult                                  (m/pixel)   = 11.65859562            ; MLC R (range) Slant Post Spacing
+mlc_mag.row_mult                                  (m/pixel)   = 16.2                   ; MLC S (azimuth) Slant Post Spacing
+mlc_mag.col_mult                                  (m/pixel)   = 11.65859562            ; MLC R (range) Slant Post Spacing
+mlc_phase.row_mult                                (m/pixel)   = 16.2                   ; MLC S (azimuth) Slant Post Spacing
+mlc_phase.col_mult                                (m/pixel)   = 11.65859562            ; MLC R (range) Slant Post Spacing
+dat.row_mult                                      (m/pixel)   = 16.2                   ; DAT S (azimuth) Slant Post Spacing (cannot be displayed in mdx)
+dat.col_mult                                      (m/pixel)   = 11.65859562            ; DAT R (range) Slant Post Spacing (cannot be displayed in mdx)
+grd_pwr.row_mult                                  (deg/pixel) = -0.0001388888888888889 ; GRD Latitude Pixel Spacing
+grd_pwr.col_mult                                  (deg/pixel) = 0.0001388888888888889  ; GRD Longitude Pixel Spacing
+grd_mag.row_mult                                  (deg/pixel) = -0.0001388888888888889 ; GRD Latitude Pixel Spacing
+grd_mag.col_mult                                  (deg/pixel) = 0.0001388888888888889  ; GRD Longitude Pixel Spacing
+grd_phase.row_mult                                (deg/pixel) = -0.0001388888888888889 ; GRD Latitude Pixel Spacing
+grd_phase.col_mult                                (deg/pixel) = 0.0001388888888888889  ; GRD Longitude Pixel Spacing
+hgt.row_mult                                      (deg/pixel) = -0.0001388888888888889 ; HGT Latitude Pixel Spacing
+hgt.col_mult                                      (deg/pixel) = 0.0001388888888888889  ; HGT Longitude Pixel Spacing
+inc.row_mult                                      (deg/pixel) = -0.0001388888888888889 ; INC Latitude Pixel Spacing
+inc.col_mult                                      (deg/pixel) = 0.0001388888888888889  ; INC Longitude Pixel Spacing
+slope.row_mult                                    (deg/pixel) = -0.0001388888888888889 ; SLOPE Latitude Pixel Spacing
+slope.col_mult                                    (deg/pixel) = 0.0001388888888888889  ; SLOPE Longitude Pixel Spacing
+slc_mag.val_size                                  (bytes)     = 8                      ; SLC Bytes per pixel in file
+slc_phase.val_size                                (bytes)     = 8                      ; SLC Bytes per pixel in file
+mlc_pwr.val_size                                  (bytes)     = 4                      ; MLC Bytes per pixel in file
+mlc_mag.val_size                                  (bytes)     = 8                      ; MLC Bytes per pixel in file
+mlc_phase.val_size                                (bytes)     = 8                      ; MLC Bytes per pixel in file
+dat.val_size                                      (bytes)     = 10                     ; DAT Bytes per pixel in file (cannot be displayed in mdx)
+grd_pwr.val_size                                  (bytes)     = 4                      ; GRD Bytes per pixel in file
+grd_mag.val_size                                  (bytes)     = 8                      ; GRD Bytes per pixel in file
+grd_phase.val_size                                (bytes)     = 8                      ; GRD Bytes per pixel in file
+hgt.val_size                                      (bytes)     = 4                      ; HGT Bytes per pixel in file
+inc.val_size                                      (bytes)     = 4                      ; INC Bytes per pixel in file
+slope.val_size                                    (bytes)     = 8                      ; SLOPE Bytes per pixel in file, 2x4 bytes per pixel
+slc_mag.val_frmt                                  (&)         = COMPLEX_MAGNITUDE      ; SLC Data Type
+slc_phase.val_frmt                                (&)         = COMPLEX_PHASE          ; SLC Data Type
+mlc_pwr.val_frmt                                  (&)         = REAL*4                 ; MLC Data Type
+mlc_mag.val_frmt                                  (&)         = COMPLEX_MAGNITUDE      ; MLC Data Type
+mlc_phase.val_frmt                                (&)         = COMPLEX_PHASE          ; MLC Data Type
+dat.val_frmt                                      (&)         = COMPRESSED_STOKES      ; DAT Data Type (cannot be displayed in mdx)
+grd_pwr.val_frmt                                  (&)         = REAL*4                 ; GRD Data Type
+grd_mag.val_frmt                                  (&)         = COMPLEX_MAGNITUDE      ; GRD Data Type
+grd_phase.val_frmt                                (&)         = COMPLEX_PHASE          ; GRD Data Type
+hgt.val_frmt                                      (&)         = REAL*4                 ; HGT Data Type
+inc.val_frmt                                      (&)         = REAL*4                 ; INC Data Type
+slope.val_frmt                                    (&)         = REAL*4                 ; SLOPE Data Type
+val_endi                                          (&)         = LITTLE ENDIAN
+val_mult                                          (-)         = 1.0                    ; Scale for Data
+val_addr                                          (-)         = 0.0                    ; Shift for Data
+val_minv                                          (dB)        = -1000000.              ; Minimum Value Default for display
+val_maxv                                          (dB)        = 10000000.              ; Maximum Value Default for display
+slc_phase.val_mult                                (-)         = 1.0                    ; Maximum Value Default for display
+slc_phase.val_minv                                (rad)       = -3.14                  ; Maximum Value Default for display
+slc_phase.val_maxv                                (rad)       = 3.14                   ; Maximum Value Default for display
+mlc_phase.val_mult                                (-)         = 1.0                    ; Maximum Value Default for display
+mlc_phase.val_minv                                (rad)       = -3.14                  ; Maximum Value Default for display
+mlc_phase.val_maxv                                (rad)       = 3.14                   ; Maximum Value Default for display
+grd_phase.val_mult                                (-)         = 1.0                    ; Maximum Value Default for display
+grd_phase.val_minv                                (rad)       = -3.14                  ; Maximum Value Default for display
+grd_phase.val_maxv                                (rad)       = 3.14                   ; Maximum Value Default for display
+dsp_cmap                                          (&)         = grey                   ; Grey Color Table
+hgt.dsp_cmap                                      (&)         = cmy                    ; Color Table
+inc.dsp_cmap                                      (&)         = grey                   ; Grey Color Table
+slope.dsp_cmap                                    (&)         = grey                   ; Grey Color Table
+slc_phase.dsp_cmap                                (&)         = cmy                    ; Color Table
+slc_phase.dsp_cmap                                (&)         = cmy                    ; Color Table
+slc_phase.dsp_cmap                                (&)         = cmy                    ; Color Table
+mlc_phase.dsp_cmap                                (&)         = cmy                    ; Color Table
+grd_phase.dsp_cmap                                (&)         = cmy                    ; Color Table
+
+; acquisition parameters
+
+Acquisition Mode                                  (&)         = PolSAR
+Pulse Length                                      (microsec)  = 40.0
+Steering Angle                                    (deg)       = 90                     ; 90 deg is boresight
+Bandwidth                                         (Mhz)       = 17.8
+Date of Acquisition                               (&)         = 13-Nov-2020 22:09:04 UTC  ; note this flight line's synthetic aperture spans 37 seconds since it was flown at an average speed of 263 m/s
+Start Time of Acquisition                         (&)         = 13-Nov-2020 22:09:04 UTC  ; note this flight line's synthetic aperture spans 37 seconds since it was flown at an average speed of 263 m/s
+Stop Time of Acquisition                          (&)         = 13-Nov-2020 22:15:35 UTC  ; note this flight line's synthetic aperture spans 37 seconds since it was flown at an average speed of 263 m/s
+
+; processing parameters
+
+Peg Latitude                                      (deg)       = 0.40837053757E+02
+Peg Longitude                                     (deg)       = -0.12415595449E+03
+Peg Heading                                       (deg)       = 0.15718600005E+03
+Center Wavelength                                 (cm)        = 0.697191763E+02
+Ellipsoid Semi-major Axis                         (m)         = 0.637813700E+07
+Ellipsoid Eccentricity Squared                    (-)         = 0.669437999E-02
+Look Direction                                    (&)         = Left
+Ping-Pong or Single Antenna Transmit              (-)         = 1
+Range Spacing per Bin                             (m)         = 0.166551366E+01
+Image Starting Range                              (km)        = 0.119271539E+02
+Nominal Azimuth Reference Length                  (-)         = 16384
+Azimuth Resolution                                (m)         = 1.0
+Azimuth Spacing                                   (m)         = 0.600000000E+00
+Sinc Interpolator Fractional Bandwidth            (-)         = 0.900
+Global Average Yaw                                (deg)       = 0.120005718E+02
+Global Average Pitch                              (deg)       = 0.208575389E+01
+Global Average Roll                               (deg)       = -0.529557964E+00
+Global Average ESA                                (deg)       = 0.000000000E+00
+Global Average Altitude                           (m)         = 0.124948728E+05
+Global Average Terrain Height                     (m)         = 0.822067808E+03
+Global Average Squint Angle                       (deg)       = 0.800845022E+02
+Average Pulse Repetition Interval                 (ms)        = 0.180400000E+01
+Average Terrain Height                            (m)         = 0.241674652E+03
+Standard Deviation of Terrain Height              (m)         = 0.248884845E+03
+Average Altitude                                  (m)         = 0.124948728E+05
+Reskew Doppler                                    (&)         = Global Doppler
+Reskew Doppler Near Mid Far                       (hz,hz,hz)  = 58.09768330         143.44511745         154.13100471
+Mocomp I Applied                                  (&)         = Y
+Mocomp II Applied                                 (&)         = Y
+Type of Secondary Motion Compensation Algorithm   (&)         = Common Track
+Fix Reference Path from Patch-to-Patch            (&)         = No
+Fix Doppler from Patch-to-Patch                   (&)         = Yes
+Global or Local Reference Height in Mocomp Common (&)         = Global
+
+; post-processing parameters
+
+Number of Range Looks in MLC                      (-)         = 7
+Number of Azimuth Looks in MLC                    (-)         = 27
+Number of Range Looks in GRD                      (-)         = 7
+Number of Azimuth Looks in GRD                    (-)         = 27
+Ground Projection Method                          (&)         = Nearest Neighbor
+DEM Used in Ground Projection                     (&)         = SRTM1 v3
+DEM Datum                                         (&)         = WGS-84
+DEM Source                                        (&)         = http://uavsar.jpl.nasa.gov/doc/dem.htm
+DEM Original Pixel Spacing                        (arcsec)    = 1
+DEM Citation Count                                (-)         = 0
+Slope Calibration in GRD                          (&)         = Yes
+Approximate Upper Left Latitude                   (deg)       = 41.228261563
+Approximate Upper Left Longitude                  (deg)       = -124.330764739
+Approximate Upper Right Latitude                  (deg)       = 41.252526305
+Approximate Upper Right Longitude                 (deg)       = -124.163160764
+Approximate Lower Left Latitude                   (deg)       = 40.449320658
+Approximate Lower Left Longitude                  (deg)       = -123.901791165
+Approximate Lower Right Latitude                  (deg)       = 40.471918602
+Approximate Lower Right Longitude                 (deg)       = -123.743410816
+Precision DGPS Solution                           (&)         = Post-Processed         ; Real-Time or Post-Processed
+Date of Processing                                (&)         = 26-Jun-2021
+Processor Version Number                          (&)         = fbbbcea0e33ca9042fcfc22bce0ae86404fdcc64
+Post Processor Version Number                     (&)         = fbbbcea0e33ca9042fcfc22bce0ae86404fdcc64
+Processor Release Notes                           (&)         = 17-Jun-2021:  Unless otherwise noted in the Comments, this product has been polarimetrically calibrated. Updated processor with 2021 calibration. Increased range spectrum used within processor. Modified range filtering of spectrum to match actual chirp bandwidth. Transient transmitter outages (a.k.a. mini-flatlines) have been reduced from 1-second duration to 40 ms and will no longer be masked in final products. Enabled Fix Doppler from Patch-to-Patch for all products.
+Hardware Version Number                           (&)         = N/A   
+
+; radiometric calibration parameters
+
+Antenna Pattern Radiometric Correction Applied    (&)         = Yes
+Range Dependent Radiometric Correction Applied    (&)         = Yes
+Area Correction Factor in Slant Plane Applied     (&)         = Yes
+RFI Removed                                       (&)         = No
+Adaptive RFI Removal Applied                      (&)         = Yes
+Cross Talk Removed                                (&)         = Yes
+Apply Receive Cal Pulse Phase                     (&)         = No
+Apply Transmit Cal Pulse Phase                    (&)         = No
+Elevation Boresight Bias HH LRTI80                (deg)       = 0.0
+Elevation Boresight Bias VV LRTI80                (deg)       = 0.0
+Sigma Nought Bias HH LRTI80                       (-)         = 0.0057398807
+Sigma Nought Bias VV LRTI80                       (-)         = 0.0029896506
+Sigma Nought Bias HV LRTI80                       (-)         = 0.0035204634
+Sigma Nought Bias VH LRTI80                       (-)         = 0.0048744103
+Sigma Nought Slope HH LRTI80                      (-/deg)     = 0.00000
+Sigma Nought Slope HV LRTI80                      (-/deg)     = 0.00000
+Sigma Nought Slope VH LRTI80                      (-/deg)     = 0.00000
+Sigma Nought Slope VV LRTI80                      (-/deg)     = 0.00000
+HH-VV Phase Bias LRTI80                           (deg)       = -160.26820988
+HV-VH Phase Bias LRTI80                           (deg)       = 174.65
+HH-VV Phase Slope LRTI80                          (-)         = -1.14351749
+HV-VH Phase Slope LRTI80                          (-)         = 0.0
+HH-VV Phase Acceleration LRTI80                   (-/deg)     = 0.00000
+HV-VH Phase Acceleration LRTI80                   (-/deg)     = 0.00000
+HH-VV Phase Jerk LRTI80                           (-/deg/deg) = 0.00000
+HV-VH Phase Jerk LRTI80                           (-/deg/deg) = 0.00000
+Noise Calibration Constant LRTI80                 (-)         = 0.0
+ISLR Noise Calibration Term LRTI80                (-)         = 0.0
+SLC Data Units                                    (&)         = linear amplitude
+MLC Data Units                                    (&)         = linear power
+GRD Data Units                                    (&)         = linear power
+HGT Data Units                                    (&)         = meters
+
+; comments
+
+comments =  Processed with adaptive RFI removal applied to all 4 channels, 2 subbands.  Heavy RFI remains in all 4 channels at upper and lower edges of frequency band.  Manually advanced start of processing by 3000 m so that final product covers in-situ site at Bridgeville, CA. 
