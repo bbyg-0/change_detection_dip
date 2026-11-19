@@ -17,30 +17,38 @@ Dataset yang digunakan:
 | Set | Tanggal | Dataset ID |
 | --- | --- | --- |
 | T1 | 13 November 2020 | `eelriv_15807_20037_012_201113_PL09043020_05_CX_02` |
-| T2 | 13 September 2023 | `eelriv_15807_23014_024_230913_PL09043020_05_CX_01` |
+| T5 | 13 September 2023 | `eelriv_15807_23014_024_230913_PL09043020_05_CX_01` |
 
-> **Catatan:** Repository ini **hanya menyertakan file annotation (`.ann`)** karena file data mentah berukuran sangat besar (total lebih dari 3 GB). Untuk menjalankan eksperimen, unduh data lengkap dari link di atas, lalu letakkan di folder `data/T1/` dan `data/T2/` sesuai struktur di bawah.
+> **Catatan:** Repository ini **hanya menyertakan file annotation (`.ann`)** karena file data mentah berukuran sangat besar (total lebih dari 3 GB). Untuk menjalankan eksperimen, unduh data lengkap dari link di atas, lalu letakkan di folder `data/L1/T1/` dan `data/L1/T5/` sesuai struktur di bawah.
 
 ## Struktur Repository
 
 ```text
 .
 ├── data/
-│   ├── T1/
-│   │   └── eelriv_15807_20037_012_201113_PL09043020_05_CX_02.ann
-│   └── T2/
-│       └── eelriv_15807_23014_024_230913_PL09043020_05_CX_01.ann
+│   └── L1/
+│       ├── T1/
+│       │   └── eelriv_15807_20037_012_201113_PL09043020_05_CX_02.ann
+│       └── T5/
+│           └── eelriv_15807_23014_024_230913_PL09043020_05_CX_01.ann
 ├── PR/
-│   └── keputusan-teknis.txt
+│   ├── keputusan-teknis.txt
+│   └── fase0-verifikasi.txt
 ├── src/
+│   ├── config.py
+│   ├── uavsar_io.py
+│   ├── covariance.py
+│   ├── fase0_verify.py
 │   ├── convert_uavsar.py
 │   ├── to_geotiff.py
+│   ├── ki_threshold.py
+│   ├── binarize_di.py
 │   └── viewer.py
 ├── .gitignore
 └── README.md
 ```
 
-File data mentah yang perlu diunduh untuk tiap set (diletakkan di `data/T1/` atau `data/T2/`):
+File data mentah yang perlu diunduh untuk tiap set (diletakkan di `data/L1/T1/` atau `data/L1/T5/`):
 
 - `*HHHH_CX_*.grd`, `*HVHV_CX_*.grd`, `*VVVV_CX_*.grd` — power (real)
 - `*HHHV_CX_*.grd`, `*HHVV_CX_*.grd`, `*HVVV_CX_*.grd` — cross-term (complex)
@@ -57,6 +65,12 @@ pip install numpy rasterio scipy
 ```
 
 ## Penggunaan
+
+Verifikasi data (Fase 0) — mengecek metadata, offset grid, konsistensi kovarians, cakupan swath, dan co-registration:
+
+```bash
+python3 src/fase0_verify.py
+```
 
 Konversi data UAVSAR ke GeoTIFF (opsional, untuk inspeksi):
 

@@ -25,7 +25,7 @@ setelah uji coba pada tile Arcata.
 
 4. CO-REGISTRATION RESIDUAL
    Pertanyaan: Bagaimana memastikan objek benar-benar match meski grid sejajar?
-   Keputusan: Cek phase correlation dan overlay Pauli-RGB T1 vs T2 per tile.
+   Keputusan: Cek phase correlation dan overlay Pauli-RGB T1 vs T5 per tile.
    Koreksi dilakukan hanya jika pergeseran > 0,5 piksel; offset integer yang
    ditemukan dicatat.
 
@@ -46,11 +46,12 @@ setelah uji coba pada tile Arcata.
    atau langsung 5 tile?
    Keputusan: Script modular + file config. Mulai dari tile Arcata dengan
    150-200 titik sampel, lalu diperluas ke 5 kota (Tyee City, Arcata,
-   McKinleyville, Eureka, Samoa). Output: peta perubahan, DI, kurva fitting
+   McKinleyville, Trinidad, Blue Lake). Output: peta perubahan, DI, kurva fitting
    histogram, tabel metrik (FA/TE/OA/Kappa), dan laporan singkat.
 
 CATATAN TAMBAHAN
 - Metode evaluasi: sample-based ground truth dengan labeling HTML, manusia
   sebagai penentu akhir, pseudo-reference optik sebagai bantuan opsional.
 - Tile default 512x512 piksel pada grid overlap (offset T1 +246 baris,
-  +414 kolom terhadap T2).
+  +414 kolom terhadap T5).
+- Data disimpan di data/L1/T1 dan data/L1/T5; n=2 (T1 2020 dan T5 2023).

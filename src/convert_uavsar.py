@@ -17,7 +17,7 @@ from rasterio.transform import from_origin
 # ----------------------------------------------------------------------
 # Folder containing the dataset files (also used as the output folder).
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = str(ROOT / "data/T2")
+DATA_DIR = str(ROOT / "data/L1/T5")
 
 # Filename pieces, e.g. tukhwy_01812_17057_014_170606_PL09043020_30HVVV_CX_01.grd
 BASE = "eelriv_15807_23014_024_230913_PL09043020"  # everything before the resolution code

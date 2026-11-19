@@ -40,7 +40,7 @@ def write_tif(out, bands, transform, descriptions=None):
                 dst.set_band_description(i, d)
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "data/T1"
+DATA = ROOT / "data/L1/T1"
 
 ann = str(DATA / "eelriv_15807_20037_012_201113_PL09043020_05_CX_02.ann")
 rows, cols, tf = geometry(ann)

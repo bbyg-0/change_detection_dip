@@ -1,0 +1,109 @@
+FASE 0 - VERIFIKASI DATA
+========================================================================
+Waktu        : 2026-11-09T11:10:11
+Lokasi       : L1 (Eel River), tile Arcata 512x512
+
+1. METADATA DAN OFFSET GRID
+   T1 (2020-11-13): rows=6277, cols=5173, looks=189, dx=0.000138888888889 deg, UL=(41.318333333, -124.374166667)
+   T5 (2023-09-13): rows=6049, cols=4561, looks=189, dx=0.000138888888889 deg, UL=(41.284166667, -124.316666667)
+   Offset T1->T5: col=414.000000, row=246.000000 piksel
+   Konstanta    : col=414, row=246
+   Integer?     : col=True, row=True
+   p=3, m=189 (7x27), n=2
+
+2. TILE ARCATA (grid overlap) r0=2751, c0=1428, T1 r0=2997, c0=1842
+
+3. STATISTIK BAND DAN PIKSEL INVALID
+   T1:
+     HHHH real   : mean=0.390941, median=0.241391, min=0, max=143.877, <=0=1.4954%, non-finite=0.0000%
+     HVHV real   : mean=0.06598, median=0.0336278, min=0, max=2.77487, <=0=1.5255%, non-finite=0.0000%
+     VVVV real   : mean=0.217267, median=0.139871, min=0, max=153.876, <=0=1.5110%, non-finite=0.0000%
+     HHHV complex: |z| mean=0.0429706, median=0.0179869, max=8.18566, non-finite=0.0000%
+     HHVV complex: |z| mean=0.126586, median=0.0616439, max=147.852, non-finite=0.0000%
+     HVVV complex: |z| mean=0.0291179, median=0.0128256, max=7.33205, non-finite=0.0000%
+     valid     : 98.4745% (3999 piksel invalid)
+   T5:
+     HHHH real   : mean=0.261554, median=0.154026, min=0, max=82.6464, <=0=5.8468%, non-finite=0.0000%
+     HVHV real   : mean=0.051546, median=0.0258372, min=0, max=3.65846, <=0=5.8468%, non-finite=0.0000%
+     VVVV real   : mean=0.184949, median=0.11353, min=0, max=70.7404, <=0=5.8468%, non-finite=0.0000%
+     HHHV complex: |z| mean=0.0274263, median=0.0122042, max=13.6769, non-finite=0.0000%
+     HHVV complex: |z| mean=0.103933, median=0.0452155, max=68.0717, non-finite=0.0000%
+     HVVV complex: |z| mean=0.0217815, median=0.0103036, max=10.4236, non-finite=0.0000%
+     valid     : 94.1532% (15327 piksel invalid)
+
+4. KONSISTENSI MATRIKS KOVARIANS (dengan faktor sqrt2/2)
+   T1:
+     r12: mean=0.250144, median=0.227555, p99=0.702359, max=0.987377, frac>1=0.000000%
+     r13: mean=0.403075, median=0.372756, p99=0.898689, max=0.998966, frac>1=0.000000%
+     r23: mean=0.233518, median=0.216703, p99=0.637657, max=0.987128, frac>1=0.000000%
+     PSD: frac=100.000000%, min_eig median=0.0446044, min=1.1308e-06
+     det(C) imag: max|imag|=3.58765e-14, max_rel=1.02696e-14, median_rel=2.85941e-18
+     [tanpa faktor] r12 median=0.227555, r23 median=0.216703, frac PSD=100.000000%
+   T5:
+     r12: mean=0.238505, median=0.221874, p99=0.620054, max=0.963534, frac>1=0.000000%
+     r13: mean=0.426474, median=0.405410, p99=0.912473, max=0.997824, frac>1=0.000000%
+     r23: mean=0.231319, median=0.216287, p99=0.585952, max=0.961352, frac>1=0.000000%
+     PSD: frac=100.000000%, min_eig median=0.0403117, min=0.000418197
+     det(C) imag: max|imag|=1.70286e-13, max_rel=1.25455e-14, median_rel=2.87527e-18
+     [tanpa faktor] r12 median=0.221874, r23 median=0.216287, frac PSD=100.000000%
+
+5. ESTIMASI JUMLAH LOOK DARI BLOK HOMOGEN 32x32
+   T1: blok (13,6), CV^2=0.0304244
+     m_est HHHH =    13.94
+     m_est HVHV =    18.42
+     m_est VVVV =    14.28
+     m_est dari cross: m12=   20.25, m13=   17.92, m23=   19.90
+     (nilai acuan m=189; estimasi empiris adalah batas bawah
+      karena heterogenitas scene/resampling)
+   T5: blok (6,11), CV^2=0.0815007
+     m_est HHHH =     9.38
+     m_est HVHV =     8.57
+     m_est VVVV =     5.97
+     m_est dari cross: m12=   15.75, m13=   13.51, m23=   14.22
+     (nilai acuan m=189; estimasi empiris adalah batas bawah
+      karena heterogenitas scene/resampling)
+
+6. CAKUPAN SWATH PER KOTA
+   kota                    valid T1  valid T5   common
+   Tyee City                 91.31%    82.70%   82.70%
+   Arcata                    98.47%    94.15%   94.15%
+   McKinleyville            100.00%   100.00%  100.00%
+   Trinidad                 100.00%   100.00%  100.00%
+   Blue Lake                 80.59%    83.22%   80.58%
+
+7. CO-REGISTRATION RESIDUAL PER KOTA (masked cross-correlation)
+   kota                         r       dr       dc     |d|       int
+   Tyee City               0.7888   -0.547   -0.148   0.567 (-1,+0)
+   Arcata                  0.7982   -0.271   -0.590   0.650 (+0,-1)
+   McKinleyville           0.8432   -0.233   -0.200   0.307 (+0,+0)
+   Trinidad                0.9044   -0.030   -0.126   0.130 (+0,+0)
+   Blue Lake               0.8052   +0.105   -0.639   0.647 (+0,-1)
+
+   Interpretasi: nilai (dr,dc) adalah translasi yang diterapkan pada T5
+   untuk sejajar dengan T1. Nilai positif = geser kanan/bawah.
+
+8. VARIASI SPASIAL SHIFT DI TILE ARCATA (per kuadran)
+   kiri-atas   : r=0.8360, shift=(-0.386, -0.601)
+   kanan-atas  : r=0.7960, shift=(-0.017, -0.526)
+   kiri-bawah  : r=0.6270, shift=(-0.814, -0.597)
+   kanan-bawah : r=0.8348, shift=(-0.255, -0.538)
+
+9. PHASE CORRELATION PEMBANDING (Arcata)
+   Phase: shift=(-0.1709, -0.7697) piksel, integer=(+0, -1)
+
+KESIMPULAN
+------------------------------------------------------------------------
+- Offset grid integer dan sesuai konstanta: True
+- p=3, m=189, n=2 dikonfirmasi dari .ann/konfigurasi.
+- Matriks kovarians memakai C22=2|HV|^2, C12=sqrt2<HH HV*>, C23=sqrt2<HV VV*>,
+  C13=<HH VV*> dengan elemen konjugat untuk Hermitian.
+- Konjugasi global pada cross-term tidak mengubah determinan/omnibus;
+  yang penting konsisten Hermitian.
+- Parameter m hanya menggeser DI secara global (koefisien konstan), sehingga
+  pemilihan threshold K&I tidak berubah; nilai nominal m=189 dipakai.
+- Kota yang dipakai: Tyee City, Arcata, McKinleyville, Trinidad, Blue Lake.
+  Semua tercakup pada kedua tanggal (Eureka & Samoa sudah diganti).
+- Residual co-registration per kota lihat tabel 7; nilai > 0.5 px perlu
+  koreksi subpiksel. Variasi per kuadran menunjukkan residual bersifat
+  spasial, kemungkinan akibat perbedaan DEM.
+

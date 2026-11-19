@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-filename = ROOT / "data/T1/eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.grd"
+filename = ROOT / "data/L1/T1/eelriv_15807_20037_012_201113_PL09043020_05HHHH_CX_02.grd"
 
 data = np.fromfile(filename, dtype="<c8")
 

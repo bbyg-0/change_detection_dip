@@ -5,10 +5,8 @@ venv/
 rujukan/
 
 # Raw UAVSAR data: keep locally, only annotation files are tracked
-data/T1/*
-!data/T1/*.ann
-data/T2/*
-!data/T2/*.ann
+data/*/*/*
+!data/*/*/*.ann
 
 # Generated outputs
 output/
