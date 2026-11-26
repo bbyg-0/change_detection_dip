@@ -1,0 +1,13 @@
+# I/O dan komputasi dasar
+numpy==2.5.4
+rasterio==1.5.2
+scipy==1.18.1
+
+# Visualisasi dan patch citra
+matplotlib==3.11.2
+pillow==13.0.0
+
+# Referensi optik (Planetary Computer STAC) untuk ground truth
+shapely==2.2.0
+pystac-client==0.9.1
+planetary-computer==1.0.0

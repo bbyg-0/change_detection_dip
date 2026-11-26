@@ -1,0 +1,81 @@
+LAPORAN FASE 1 - PREPROCESSING & CO-REGISTRATION
+========================================================================
+
+Kota: Tyee City
+  tile           : col=1112 row=2349 512x512
+  valid common   : 82.70%
+  HH NCC global  : dr=-0.5403 px, dc=-0.1261 px, r=0.7838
+  VV NCC global  : dr=-0.5539 px, dc=-0.1778 px, r=0.7687
+  mode dipakai   : blockwise
+  blockwise      : 14/16 blok valid (block=128)
+    mean(dr,dc)  : (-0.4554, -0.5227)
+  mask akhir     : 85.78% valid
+  T1 PSD: 100.000% | min eig med 1.161e-02 | det imag max 3.590e-14 (rel 7.550e-15)
+  T5 PSD: 98.113% | min eig med 7.387e-03 | det imag max 2.762e-15 (rel 2.054e-13)
+  delta mask     : +3.080 pp
+  disimpan       : output/L1/tyee_city/prep/prep.npz
+                   output/L1/tyee_city/prep/meta.json
+
+Kota: Arcata
+  tile           : col=1428 row=2751 512x512
+  valid common   : 94.15%
+  HH NCC global  : dr=-0.2636 px, dc=-0.5782 px, r=0.7936
+  VV NCC global  : dr=-0.2785 px, dc=-0.6215 px, r=0.7100
+  mode dipakai   : blockwise
+  blockwise      : 16/16 blok valid (block=128)
+    mean(dr,dc)  : (-0.4508, -0.5363)
+  mask akhir     : 95.43% valid
+  T1 PSD: 100.000% | min eig med 4.832e-02 | det imag max 3.590e-14 (rel 1.094e-14)
+  T5 PSD: 98.930% | min eig med 3.781e-02 | det imag max 9.309e-14 (rel 5.929e-14)
+  delta mask     : +1.273 pp
+  disimpan       : output/L1/arcata/prep/prep.npz
+                   output/L1/arcata/prep/meta.json
+
+Kota: McKinleyville
+  tile           : col=1280 row=2024 512x512
+  valid common   : 100.00%
+  HH NCC global  : dr=-0.2334 px, dc=-0.1970 px, r=0.8564
+  VV NCC global  : dr=-0.2232 px, dc=-0.2188 px, r=0.7655
+  mode dipakai   : global
+  mask akhir     : 99.12% valid
+  T1 PSD: 100.000% | min eig med 5.045e-02 | det imag max 3.816e-15 (rel 3.858e-15)
+  T5 PSD: 99.145% | min eig med 3.610e-02 | det imag max 1.316e-15 (rel 1.338e-12)
+  delta mask     : -0.877 pp
+  disimpan       : output/L1/mckinleyville/prep/prep.npz
+                   output/L1/mckinleyville/prep/meta.json
+
+Kota: Trinidad
+  tile           : col=993 row=1363 512x512
+  valid common   : 100.00%
+  HH NCC global  : dr=-0.0341 px, dc=-0.1244 px, r=0.9273
+  VV NCC global  : dr=-0.0298 px, dc=-0.1451 px, r=0.7761
+  mode dipakai   : global
+  mask akhir     : 99.61% valid
+  T1 PSD: 100.000% | min eig med 9.398e-03 | det imag max 5.579e-16 (rel 2.165e-15)
+  T5 PSD: 99.988% | min eig med 5.426e-03 | det imag max 7.441e-15 (rel 8.232e-14)
+  delta mask     : -0.395 pp
+  disimpan       : output/L1/trinidad/prep/prep.npz
+                   output/L1/trinidad/prep/meta.json
+
+Kota: Blue Lake
+  tile           : col=2140 row=2633 512x512
+  valid common   : 80.58%
+  HH NCC global  : dr=+0.0802 px, dc=-0.3603 px, r=0.8474
+  VV NCC global  : dr=+0.0952 px, dc=-0.4321 px, r=0.7779
+  mode dipakai   : blockwise
+  blockwise      : 15/16 blok valid (block=128)
+    mean(dr,dc)  : (+0.0682, -0.4280)
+  mask akhir     : 80.32% valid
+  T1 PSD: 99.999% | min eig med 5.857e-02 | det imag max 3.073e-14 (rel 3.696e-14)
+  T5 PSD: 99.772% | min eig med 4.542e-02 | det imag max 8.018e-15 (rel 7.611e-14)
+  delta mask     : -0.262 pp
+  disimpan       : output/L1/blue_lake/prep/prep.npz
+                   output/L1/blue_lake/prep/meta.json
+
+PARAMETER
+------------------------------------------------------------------------
+  mode default   : auto (blockwise jika |shift|>=0.3 px atau HH-VV beda>=0.4)
+  block          : 128 px, max_shift 8 px
+  diagonal load  : eps=1e-06 * trace(C)/p
+  interpolasi    : order=3 (bicubic) power; complex = real+imag terpisah
+  masker akhir   : valid(T1) & valid(T5 terkoreksi) & in-bounds

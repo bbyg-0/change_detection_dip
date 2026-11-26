@@ -1,6 +1,6 @@
 FASE 0 - VERIFIKASI DATA
 ========================================================================
-Waktu        : 2026-11-09T11:10:11
+Waktu        : 2026-11-19T21:29:36
 Lokasi       : L1 (Eel River), tile Arcata 512x512
 
 1. METADATA DAN OFFSET GRID
@@ -28,7 +28,7 @@ Lokasi       : L1 (Eel River), tile Arcata 512x512
      VVVV real   : mean=0.184949, median=0.11353, min=0, max=70.7404, <=0=5.8468%, non-finite=0.0000%
      HHHV complex: |z| mean=0.0274263, median=0.0122042, max=13.6769, non-finite=0.0000%
      HHVV complex: |z| mean=0.103933, median=0.0452155, max=68.0717, non-finite=0.0000%
-     HVVV complex: |z| mean=0.0217815, median=0.0103036, max=10.4236, non-finite=0.0000%
+     HVVV complex: |z| mean=0.0217814, median=0.0103036, max=10.4236, non-finite=0.0000%
      valid     : 94.1532% (15327 piksel invalid)
 
 4. KONSISTENSI MATRIKS KOVARIANS (dengan faktor sqrt2/2)
@@ -37,14 +37,14 @@ Lokasi       : L1 (Eel River), tile Arcata 512x512
      r13: mean=0.403075, median=0.372756, p99=0.898689, max=0.998966, frac>1=0.000000%
      r23: mean=0.233518, median=0.216703, p99=0.637657, max=0.987128, frac>1=0.000000%
      PSD: frac=100.000000%, min_eig median=0.0446044, min=1.1308e-06
-     det(C) imag: max|imag|=3.58765e-14, max_rel=1.02696e-14, median_rel=2.85941e-18
+     det(C) imag: max|imag|=1.53756e-14, max_rel=5.9952e-15, median_rel=2.86445e-18
      [tanpa faktor] r12 median=0.227555, r23 median=0.216703, frac PSD=100.000000%
    T5:
      r12: mean=0.238505, median=0.221874, p99=0.620054, max=0.963534, frac>1=0.000000%
      r13: mean=0.426474, median=0.405410, p99=0.912473, max=0.997824, frac>1=0.000000%
      r23: mean=0.231319, median=0.216287, p99=0.585952, max=0.961352, frac>1=0.000000%
      PSD: frac=100.000000%, min_eig median=0.0403117, min=0.000418197
-     det(C) imag: max|imag|=1.70286e-13, max_rel=1.25455e-14, median_rel=2.87527e-18
+     det(C) imag: max|imag|=1.70286e-13, max_rel=1.07137e-14, median_rel=2.89025e-18
      [tanpa faktor] r12 median=0.221874, r23 median=0.216287, frac PSD=100.000000%
 
 5. ESTIMASI JUMLAH LOOK DARI BLOK HOMOGEN 32x32

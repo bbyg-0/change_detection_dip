@@ -17,6 +17,7 @@ from scipy import stats, optimize, special
 
 EPS = 1e-6      # replaces level 0 for weibull / gamma (undefined at 0)
 TINY = 1e-300
+MIN_BINS = 5    # minimal bin terisi per kelas agar MLE tidak degenerasi
 
 
 # ----------------------------------------------------------------- loading
@@ -100,13 +101,13 @@ def logpdf(pdf, params, d):
 
 
 # -------------------------------------------------------------------- core
-def evaluate_T(T, h, pdf, L, detail=False, cost_mode="posterior"):
+def evaluate_T(T, h, pdf, L, detail=False, cost_mode="posterior", min_bins=MIN_BINS):
     """Return J(T) (inf if infeasible). h = normalized histogram (len L)."""
     levels = np.arange(L)
     hu, hc = h[: T + 1], h[T + 1:]
     pi_u, pi_c = hu.sum(), hc.sum()
-    # need two classes with >=2 occupied bins each to fit parameters
-    if (hu > 0).sum() < 2 or (hc > 0).sum() < 2:
+    # perlu dua kelas dengan >=min_bins bin terisi agar MLE stabil
+    if (hu > 0).sum() < min_bins or (hc > 0).sum() < min_bins:
         return np.inf, None
 
     du = _support(levels[: T + 1], pdf)
@@ -147,8 +148,8 @@ def fmt_params(pdf, p):
             f"rate (1/theta) = {p['rate']:.6f}")
 
 
-def verbose_report(T, h, pdf, L, x, lv, cost_mode="posterior"):
-    J, r = evaluate_T(T, h, pdf, L, detail=True, cost_mode=cost_mode)
+def verbose_report(T, h, pdf, L, x, lv, cost_mode="posterior", min_bins=MIN_BINS):
+    J, r = evaluate_T(T, h, pdf, L, detail=True, cost_mode=cost_mode, min_bins=min_bins)
     levels = np.arange(L)
     sep = "=" * 72
     print(f"\n{sep}\nSTEP-BY-STEP RECALCULATION AT OPTIMAL T = {T}  "
@@ -217,19 +218,30 @@ def main():
     ap.add_argument("--cost", choices=["posterior", "likelihood"], default="posterior",
                     help="posterior = your formulas (default); likelihood = classic KI -2 ln[pi f]")
     ap.add_argument("--save-map", help="optional .npy path for the binary change map")
+    ap.add_argument("--min-bins", type=int, default=MIN_BINS,
+                    help="minimal bin terisi per kelas (default 5)")
+    ap.add_argument("--mask", help=".npy bool/uint8 atau .npz (key 'mask') piksel valid")
     a = ap.parse_args()
 
     x, lv = load_levels(a.input, a.L)
     print(f"Image {x.shape}, original range [{x.min():.6f}, {x.max():.6f}] "
           f"-> levels [{lv.min()}, {lv.max()}], L = {a.L}, pdf = {a.pdf}")
 
-    h = np.bincount(lv.ravel(), minlength=a.L).astype(np.float64)
+    if a.mask:
+        if a.mask.endswith(".npz"):
+            sel_mask = np.load(a.mask)["mask"].astype(bool)
+        else:
+            sel_mask = np.load(a.mask).astype(bool)
+        sel = lv[sel_mask].ravel()
+    else:
+        sel = lv.ravel()
+    h = np.bincount(sel, minlength=a.L).astype(np.float64)
     h /= h.sum()
 
     # pass 1: brute force
     Js = np.full(a.L, np.inf)
     for T in range(a.L):
-        Js[T], _ = evaluate_T(T, h, a.pdf, a.L, cost_mode=a.cost)
+        Js[T], _ = evaluate_T(T, h, a.pdf, a.L, cost_mode=a.cost, min_bins=a.min_bins)
     if not np.isfinite(Js).any():
         raise SystemExit("No feasible threshold found.")
     T_opt = int(np.argmin(Js))
@@ -237,7 +249,7 @@ def main():
           f"T_opt = {T_opt}, J_min = {Js[T_opt]:.6f}")
 
     # pass 2: verbose recalculation
-    J2 = verbose_report(T_opt, h, a.pdf, a.L, x, lv, a.cost)
+    J2 = verbose_report(T_opt, h, a.pdf, a.L, x, lv, a.cost, min_bins=a.min_bins)
     print(f"\nCheck: pass-1 J = {Js[T_opt]:.10f} | pass-2 J = {J2:.10f} | "
           f"diff = {abs(Js[T_opt] - J2):.2e}")
 

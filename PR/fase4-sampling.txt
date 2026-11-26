@@ -1,0 +1,79 @@
+LAPORAN FASE 4 - SAMPLING, PATCH, OPTIK, DAN ALAT LABELING
+============================================================================
+
+Konfigurasi: tile 512x512, patch 128x128, 4x4 grid (8 titik/sel) + 32 top-5% DI.
+Patch SAR: RGB palsu HH/HV/VV (dB, stretch persentil 2-98), ~1.49x1.97 km. Tidak diubah.
+Sentinel-2: ~1.28x1.28 km. Gambar tidak diubah; skala crosshair disesuaikan.
+NAIP: konteks ~770 m dari rendered_preview, dipetakan via proj:code/transform/shape.
+      Crosshair NAIP diverifikasi 0 px terhadap konteks COG bergeoreferensi.
+Crosshair: overlay HTML magenta + outline hitam; toggle ON/OFF dengan Spasi.
+Skala crosshair (lebar ground sama): SAR 1.00, Sentinel ~1.17, NAIP ~1.94.
+Layout labeling.html: 2 kolom besar, responsif ke 1 kolom.
+
+KOTA: Tyee City (tyee_city)
+  sampel        : 160  (grid 128, top5 32, fill 0)
+  patch SAR     : 320 PNG
+  optik detail  : NAIP_2020=160, NAIP_2022=160, S2_2020=160, S2_2023=160
+  konteks NAIP  : 320 PNG (~770 m)
+  labeling.html : /home/baba/Documents/1.semester5/pcd/tubes-praktek/output/L1/tyee_city/labeling/labeling.html (194 KB)
+
+KOTA: Arcata (arcata)
+  sampel        : 160  (grid 128, top5 32, fill 0)
+  patch SAR     : 320 PNG
+  optik detail  : NAIP_2020=160, NAIP_2022=160, S2_2020=159, S2_2023=160
+  konteks NAIP  : 320 PNG (~770 m)
+  labeling.html : /home/baba/Documents/1.semester5/pcd/tubes-praktek/output/L1/arcata/labeling/labeling.html (188 KB)
+
+KOTA: McKinleyville (mckinleyville)
+  sampel        : 160  (grid 128, top5 32, fill 0)
+  patch SAR     : 320 PNG
+  optik detail  : NAIP_2020=160, NAIP_2022=160, S2_2020=160, S2_2023=160
+  konteks NAIP  : 320 PNG (~770 m)
+  labeling.html : /home/baba/Documents/1.semester5/pcd/tubes-praktek/output/L1/mckinleyville/labeling/labeling.html (199 KB)
+
+KOTA: Trinidad (trinidad)
+  sampel        : 160  (grid 128, top5 32, fill 0)
+  patch SAR     : 320 PNG
+  optik detail  : NAIP_2020=160, NAIP_2022=160, S2_2020=160, S2_2023=160
+  konteks NAIP  : 320 PNG (~770 m)
+  labeling.html : /home/baba/Documents/1.semester5/pcd/tubes-praktek/output/L1/trinidad/labeling/labeling.html (194 KB)
+
+KOTA: Blue Lake (blue_lake)
+  sampel        : 160  (grid 128, top5 32, fill 8)
+  patch SAR     : 320 PNG
+  optik detail  : NAIP_2020=160, NAIP_2022=160, S2_2020=160, S2_2023=160
+  konteks NAIP  : 320 PNG (~770 m)
+  labeling.html : /home/baba/Documents/1.semester5/pcd/tubes-praktek/output/L1/blue_lake/labeling/labeling.html (194 KB)
+
+VERIFIKASI POSISI NAIP (preview vs COG bergeoreferensi, 770 m)
+- Arcata: 5 titik -> best shift (0,0); korelasi 0.85-0.96.
+- Tyee City, Arcata, McKinleyville, Trinidad, Blue Lake: 1 titik/kota -> best shift (0,0).
+- Sebelum perbaikan: preview bergeser ~8 px (~48 m) karena dipetakan linear pada lon/lat.
+
+SKALA CROSSHAIR (luas ground disamakan)
+- SAR      : 128 px * 0.5 arcsec ~ 1.49 km lebar -> skala 1.00
+- Sentinel : 128 px * 10 m = 1.28 km lebar -> skala 1.49/1.28 = 1.17
+- NAIP     : 128 px * 770 m = 0.77 km lebar -> skala 1.49/0.77 = 1.94
+- Crosshair simetris; lebar ground yang ditunjuk sama untuk ketiga sumber.
+- SAR pixel ground sedikit lebih tinggi (15.4 m vs 11.7 m), sehingga lengan vertikal
+  crosshair SAR mencakup ground ~24% lebih panjang; skala di atas menyamakan arah horizontal.
+
+CARA PAKAI
+1. Buka output/L1/<kota>/labeling/labeling.html di browser.
+   Jika localStorage/img bermasalah via file://, jalankan server lokal:
+     python -m http.server -d output/L1/<kota> 8000
+   lalu buka http://localhost:8000/labeling/labeling.html
+2. Tekan 1=berubah, 0=tidak, u=ragu, s=lewati, backspace/<-=kembali.
+3. Spasi = tampilkan/sembunyikan crosshair.
+4. Klik Export CSV -> labels_<slug>.csv.
+5. Gabungkan: python src/combine_labels.py <file1.csv> ... --out labels/L1_labels.csv
+
+CATATAN
+- Label disimpan otomatis di localStorage browser (per kota).
+- DI tidak ditampilkan saat pelabelan agar tidak bias.
+- Urutan sampel diacak (seed 123) agar tidak mengikuti pola spasial.
+- Label 'u' dan kosong dikecualikan dari OA/Kappa (dilaporkan terpisah).
+- Arcata: 1 patch S2 2020 tidak tersedia (titik di luar cakupan tile).
+- Blue Lake: 8 titik fill karena sebagian sel grid kurang piksel valid.
+- SAR crosshair bisa tidak di tengah untuk titik dekat tepi tile (window dipotong),
+  sedangkan optik selalu di tengah; keduanya menunjuk titik ground yang sama.

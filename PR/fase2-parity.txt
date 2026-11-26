@@ -1,0 +1,30 @@
+LAPORAN PARITY FASE 2 (Python referensi vs Julia)
+=================================================
+
+Tile: Arcata (512x512), T1 2020 vs T5 2023, p=3, m=189, n=2
+Preprocessing: prep.npz dari Fase 1 (eps=1e-6, PSD mask)
+
+A. DI OMNIBUS
+- Mask valid: Python 94.376373%, Julia 94.376373% -> agreement 100.000%
+- Jumlah piksel valid: 247.402
+- Selisih absolut maksimum DI   : 9.7615e-4 (dari penyimpanan float32)
+- Selisih relatif maksimum DI   : 5.9523e-8
+- Selisih normalisasi min-max   : 2.9786e-8
+- Orientasi dipakai            : "pos" (nilai tinggi = perubahan)
+- Rentang DI valid             : 2.85023 .. 23412.5
+Status: LULUS (target relatif < 1e-6)
+
+B. K&I (mode likelihood, L=2048, min_bins=5, histogram hanya piksel valid)
+- Gaussian : T* = 54, J = 8.141074, agreement peta 100.000%
+- Weibull  : T* = 83, J = 7.722687, agreement peta 100.000%
+- Gamma    : T* = 93, J = 7.642548, agreement peta 100.000%
+Status: LULUS
+
+C. CATATAN
+- Tanpa min_bins=5, Weibull degenerasi ke T=1 (94% changed). Dengan min_bins=5,
+  hasil stabil dan sama antara Python dan Julia.
+- Script Python tanpa opsi --mask memasukkan piksel invalid (5.6%) ke histogram,
+  sehingga hasil berbeda. Pipeline resmi memakai mask; parity memakai --mask.
+- Waktu Julia (2048 threshold): Gaussian ~1.2 s, Gamma ~1.8 s, Weibull ~3.2 s.
+  MLE root-finding khusus dipilih (bukan Distributions.fit) dan terbukti sama
+  dengan implementasi Python.

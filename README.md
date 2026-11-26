@@ -33,18 +33,46 @@ Dataset yang digunakan:
 │           └── eelriv_15807_23014_024_230913_PL09043020_05_CX_01.ann
 ├── PR/
 │   ├── keputusan-teknis.txt
-│   └── fase0-verifikasi.txt
-├── src/
+│   ├── fase0-verifikasi.txt
+│   ├── fase1-preprocess.txt
+│   ├── fase2-parity.txt
+│   └── fase2-hasil.txt
+├── src/                      # I/O, preprocessing, ekspor (Python)
 │   ├── config.py
 │   ├── uavsar_io.py
 │   ├── covariance.py
+│   ├── registration.py
+│   ├── preprocess.py
 │   ├── fase0_verify.py
+│   ├── omnibus_ref.py        # referensi parity DI
+│   ├── ki_threshold.py       # referensi parity K&I
+│   ├── export_results.py
+│   ├── plot_results.py
+│   ├── sampling.py
+│   ├── patches.py
+│   ├── optical.py
+│   ├── optical_context.py
+│   ├── labeling.py
+│   ├── make_samples.py
+│   ├── combine_labels.py
+│   ├── binarize_di.py
 │   ├── convert_uavsar.py
 │   ├── to_geotiff.py
-│   ├── ki_threshold.py
-│   ├── binarize_di.py
 │   └── viewer.py
+├── julia/                    # DI, K&I, baseline (Julia)
+│   ├── Project.toml
+│   └── src/
+│       ├── UAVSARChangeDetection.jl
+│       ├── prep.jl
+│       ├── omnibus.jl
+│       ├── ki.jl
+│       ├── baselines.jl
+│       ├── run_di.jl
+│       ├── run_ki.jl
+│       └── run_baselines.jl
+├── output/                   # hasil (di-ignore git)
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
@@ -58,18 +86,98 @@ File data mentah yang perlu diunduh untuk tiap set (diletakkan di `data/L1/T1/` 
 
 ## Instalasi
 
+Python (I/O, preprocessing, ekspor):
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install numpy rasterio scipy
+pip install -r requirements.txt
 ```
+
+Julia (DI, K&I, baseline):
+
+```bash
+julia --project=julia -e 'using Pkg; Pkg.instantiate()'
+```
+
+Dependensi Python:
+
+| Paket | Kegunaan |
+|---|---|
+| `numpy`, `rasterio`, `scipy` | baca data GRD, geotransform, referensi K&I |
+| `matplotlib`, `pillow` | visualisasi DI/peta perubahan dan patch citra |
+| `shapely`, `pystac-client`, `planetary-computer` | ambil citra optik (NAIP, Sentinel-2) untuk ground truth |
+
+Dependensi Julia: `NPZ`, `Distributions`, `StaticArrays`, `Roots`, `JSON3`, `SpecialFunctions`.
 
 ## Penggunaan
 
-Verifikasi data (Fase 0) — mengecek metadata, offset grid, konsistensi kovarians, cakupan swath, dan co-registration:
+**1. Verifikasi data (Fase 0):**
 
 ```bash
 python3 src/fase0_verify.py
+```
+
+**2. Preprocessing + co-registration + simpan data siap-DI (Fase 1.5):**
+
+```bash
+python src/preprocess.py --save
+```
+
+Menghasilkan `output/L1/<kota>/prep/prep.npz` + `meta.json` dan laporan `PR/fase1-preprocess.txt`.
+
+**3. DI omnibus (Julia):**
+
+```bash
+julia --project=julia julia/src/run_di.jl \
+  output/L1/arcata/prep/prep.npz output/L1/arcata/prep/meta.json \
+  output/L1/arcata/di/arcata pos
+```
+
+**4. Threshold K&I (Julia):**
+
+```bash
+julia --project=julia julia/src/run_ki.jl \
+  output/L1/arcata/di/arcata_di.npz \
+  output/L1/arcata/change_map/arcata_gamma gamma 2048 likelihood 5
+```
+
+**5. Baseline (Julia):**
+
+```bash
+julia --project=julia julia/src/run_baselines.jl \
+  output/L1/arcata/prep/prep.npz output/L1/arcata/prep/meta.json \
+  output/L1/arcata/di/arcata_di.npz output/L1/arcata/change_map/arcata
+```
+
+**6. Ekspor GeoTIFF + figur (Python):**
+
+```bash
+python src/export_results.py
+python src/plot_results.py
+```
+
+Hasil tersimpan di `output/L1/<kota>/` (`prep/`, `di/`, `change_map/`, `figures/`). Ringkasan metrik ada di `PR/fase2-hasil.txt`; parity Python–Julia di `PR/fase2-parity.txt`.
+
+**7. Sampling, patch, optik, dan alat labeling (Fase 4):**
+
+```bash
+# semua kota (SAR + optik); optik bisa dilewati dengan --skip-optical
+python src/make_samples.py
+
+# satu kota saja
+python src/make_samples.py --cities Arcata
+```
+
+Menghasilkan `output/L1/<kota>/samples/samples.csv`, `patches/*.png` (termasuk
+konteks NAIP ~770 m), dan `labeling/labeling.html`. Buka HTML tersebut di browser (atau lewat
+`python -m http.server -d output/L1/arcata 8000`), labeli dengan tombol
+`1`/`0`/`u`/`s` (Spasi = crosshair on/off), lalu **Export CSV**.
+
+Gabungkan CSV dari semua kota:
+
+```bash
+python src/combine_labels.py ~/Downloads/labels_*.csv --out labels/L1_labels.csv
 ```
 
 Konversi data UAVSAR ke GeoTIFF (opsional, untuk inspeksi):
@@ -77,8 +185,6 @@ Konversi data UAVSAR ke GeoTIFF (opsional, untuk inspeksi):
 ```bash
 python src/to_geotiff.py
 ```
-
-Pipeline change detection (omnibus test statistic + K&I Weibull/gamma) akan ditambahkan pada tahap berikutnya.
 
 ## Catatan
 

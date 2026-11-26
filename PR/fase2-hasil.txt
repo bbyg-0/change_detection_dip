@@ -1,0 +1,62 @@
+LAPORAN FASE 2 - DI OMNIBUS & THRESHOLDING K&I
+==============================================================================
+
+Normalisasi DI: min-max per tile (piksel valid). K&I: cost=likelihood, L=2048, min_bins=5.
+Baseline: log-ratio (total power) + K&I Gaussian; CFAR gamma clutter pfa=1e-2; signifikansi kuantil.
+
+KOTA: arcata  (valid 94.38%, DI 2.85 .. 2.341e+04)
+  metode                        T*     norm  changed%          J
+  K&I gamma                     93   0.0454    1.831%     7.6425
+  K&I weibull                   83   0.0405    2.041%     7.7227
+  K&I gaussian                  54   0.0264    4.096%     8.1411
+  log-ratio+K&I gauss           62   0.0303    2.225%     8.1602
+  CFAR (pfa=1e-2)                -   0.0450    1.856%          -
+  signifikansi 0.05              -   0.0241    5.000%          -
+  signifikansi 0.01              -   0.8608    1.000%          -
+
+KOTA: blue_lake  (valid 80.13%, DI 5.569 .. 1.311e+04)
+  metode                        T*     norm  changed%          J
+  K&I gamma                     98   0.0479    1.768%     8.1616
+  K&I weibull                   79   0.0386    2.781%     8.2221
+  K&I gaussian                  67   0.0327    3.946%     8.4648
+  log-ratio+K&I gauss          237   0.1157    2.497%    10.9606
+  CFAR (pfa=1e-2)                -   0.0354    3.386%          -
+  signifikansi 0.05              -   0.0297    5.000%          -
+  signifikansi 0.01              -   0.0635    1.000%          -
+
+KOTA: mckinleyville  (valid 98.27%, DI 5.515 .. 3899)
+  metode                        T*     norm  changed%          J
+  K&I gamma                    429   0.2095    1.730%    11.2657
+  K&I weibull                  367   0.1792    2.754%    11.3216
+  K&I gaussian                 247   0.1206    7.942%    11.5030
+  log-ratio+K&I gauss          642   0.3135    3.910%    13.2035
+  CFAR (pfa=1e-2)                -   0.1715    3.123%          -
+  signifikansi 0.05              -   0.1443    5.000%          -
+  signifikansi 0.01              -   0.2497    1.000%          -
+
+KOTA: trinidad  (valid 99.59%, DI 1.618 .. 3424)
+  metode                        T*     norm  changed%          J
+  K&I gamma                    470   0.2295    0.282%    10.9325
+  K&I weibull                  374   0.1826    0.579%    10.9693
+  K&I gaussian                 304   0.1484    1.375%    11.1039
+  log-ratio+K&I gauss          571   0.2788    1.703%    12.7016
+  CFAR (pfa=1e-2)                -   0.1447    1.576%          -
+  signifikansi 0.05              -   0.1152    5.000%          -
+  signifikansi 0.01              -   0.1589    1.000%          -
+
+KOTA: tyee_city  (valid 84.12%, DI 7.348 .. 2.496e+04)
+  metode                        T*     norm  changed%          J
+  K&I gamma                    172   0.0840    3.546%     8.2293
+  K&I weibull                  134   0.0654    3.625%     8.2872
+  K&I gaussian                  65   0.0317    5.151%     8.5718
+  log-ratio+K&I gauss           72   0.0352    3.851%     8.6250
+  CFAR (pfa=1e-2)                -   0.1829    3.463%          -
+  signifikansi 0.05              -   0.0329    5.000%          -
+  signifikansi 0.01              -   0.8977    1.000%          -
+
+CATATAN
+- Piksel invalid (termasuk non-PSD setelah interpolasi) dikeluarkan dari histogram.
+- Tanpa min_bins=5, Weibull degenerasi (T=1, ~94% changed); dengan min_bins=5 hasil stabil.
+- Urutan changed% mengikuti paper: Gaussian > Weibull > Gamma (gamma paling konservatif).
+- Peta biner (.tif), DI (.tif), dan figur (.png) ada di output/L1/<kota>/.
+- Output di-ignore git; hanya script dan data .ann yang dilacak.
